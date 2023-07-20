@@ -1,0 +1,33 @@
+body{
+    margin:0;
+    color:#6a6f8c;
+    background:#c8c8c8;
+    font:600 16px/18px 'Open Sans',sans-serif;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.notification {
+    margin: 10px;
+    padding: 10px 10px 0 10px;
+    border: 1px solid;
+    border-radius: 20px;
+}
+.notification:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 10px 20px 2px rgba(0, 0, 0, 0.25);
+}
+
+.notification p{
+    font-weight: bold;
+}

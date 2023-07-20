@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Подключений доп файлов-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/<%= namepage %>.css">
+    <script src="../js/script.js"></script>
+    <script src="../js/auth-vk.js"></script>
+    <script src="https://vk.com/js/api/openapi.js?168" type="text/javascript"></script>
+    <link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
+
+    <link rel="shortcut icon" href="../img/иконка.png" />
+    <title>Хранитель</title>
+</head>
+<body>
+    <div class='dashboard'>
+        <%- include('../inc/header') %>
+            <div class='dashboard-content'>
+                <div class='container'>
+                    <div class='card'>
+                        <%- include(`../layouts/${namepage}`) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

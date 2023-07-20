@@ -1,0 +1,88 @@
+<div class='card'>
+    <div class='card-header'>
+        <h1><%= user_id.login %>, все пользователи сайта!</h1>
+    </div>
+    <div class='card-body'>
+        <div class="row row-body">
+            <div class="button-flex col">
+                <% if (user_id.access.includes(1) || user_id.access.includes(2) || user_id.access.some(access => access >= 7)) { %>
+                    <button type="button" class="cr-post btn btn-outline-primary">
+                        <i class="fas fa-user"><img src="../img/редактирование.png" width="30" height="30" ></i>
+                        отредактировать пользователя
+                    </button>
+                <% } %>
+            </div>
+
+            <div class="info">
+                <select class="form-select" aria-label="Пример выбора по умолчанию">
+                    <option selected>Выберите пользователя для редактирования</option>
+                    <option value="1">Морж</option>
+                    <option value="2">Дима</option>
+                    <option value="3">Паша</option>
+                </select>
+                <div class="check">
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Добавить</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Убрать</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Изменить</label>
+                    </div>
+                </div>
+                <div class="select-form">
+                    <select class="form-select" aria-label="Пример выбора по умолчанию">
+                        <option selected>Глобальный класс роли</option>
+                        <option value="1">Ведущие МП</option>
+                        <option value="2">Модераторы ВК</option>
+                        <option value="3">Модераторы ДС</option>
+                        <option value="3">Редаторы группы</option>
+                        <option value="3">Администрация</option>
+                    </select>
+                    <select class="form-select" aria-label="Пример выбора по умолчанию">
+                        <option selected>Должность глобального класса</option>
+                        <option value="1">бла-бла 1</option>
+                        <option value="2">бла-бла 2</option>
+                        <option value="3">бла-бла 3</option>
+                    </select>
+                </div>
+                <div class="button-form">
+                    <button type="button" class="cr-post btn btn-outline-success">
+                        Изменить
+                    </button>
+                    <button type="button" class="cr-post btn btn-outline-danger">
+                        ОТМЕНА
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Должность</th>
+                    <th scope="col">Бонусы</th>
+                    <th scope="col">Выговоры</th>
+                    <th scope="col">Настройка</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">Морж</th>
+                    <td>Разработчик</td>
+                    <td>999</td>
+                    <td>Не имеются</td>
+                    <td>Отредактировать | удалить</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

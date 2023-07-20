@@ -1,0 +1,36 @@
+.check {
+	display: flex;
+	justify-content: space-evenly;
+	margin-top: 16px;
+}
+.button-flex {
+	display: flex;
+	justify-content: space-around;
+}
+.row-body {
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	width: 750px;
+	margin: 15px
+}
+
+.button-form {
+	display: flex;
+    justify-content: space-around;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.select-form select {
+	margin-bottom: 10px
+}
+
+.button-form button {
+	width: 100px
+}

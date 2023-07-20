@@ -1,0 +1,73 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name {
+    font-size: 30px;
+}
+
+.post {
+    font-weight: bold;
+}
+
+.access-0 {
+    color: teal;
+}
+.access-1 {
+    color: deeppink;
+}
+.access-2 {
+    color: purple;
+}
+.access-3 {
+    color: cyan;
+}
+.access-4 {
+    color: darkblue;
+}
+.access-5 {
+    color: salmon;
+}
+.access-6 {
+    color: cadetblue;
+}
+.access-7 {
+    color: lime;
+}
+.access-8 {
+    color: black;
+}
+.access-9 {
+    color: crimson;
+}
+
+.profile img {
+    border-radius: 50%;
+}
+.data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.data-item {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100px;
+    border: 3px solid black;
+    border-radius: 40%;
+}
+
+.data-item span {
+    padding: 20px;
+}
+
+
+.statistics {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0 0 0;
+}

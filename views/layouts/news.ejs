@@ -1,0 +1,220 @@
+
+    <div class='card-header'>
+        <h1><%= user_id.login %>, новости за сегоднешний день!</h1>
+    </div>
+    <div class='card-body'>
+        <% if (user_id.access.includes(1) || user_id.access.includes(2) || user_id.access.includes(4) || user_id.access.some(access => access >= 6)) { %>
+
+            <div class="row">
+                <div class="button-flex col">
+                    <% if (user_id.access.includes(1) || user_id.access.includes(2) || user_id.access.some(access => access >= 7)) { %>
+                        <button type="button" class="cr-post btn btn-outline-primary">
+                            <i class="fas fa-user"><img src="../img/объявление.png" width="30" height="30" ></i>
+                            Создать Анонс Мероприятия
+                        </button>
+                    <% } %>
+                    <% if (user_id.access.includes(2) || user_id.access.includes(4) || user_id.access.some(access => access >= 6)) { %>
+                        <button type="button" class="cr-post2 btn btn-outline-primary">
+                            <i class="fas fa-user"><img src="../img/объявление.png" width="30" height="30" ></i>
+                            Опубликовать новость
+                        </button>
+                    <% } %>
+                </div>
+            </div>
+        <% } %>
+
+            <hr>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item <% if (currentPage === 1) { %>disabled<% } %>">
+                        <a class="page-link" href="/news?page=<%= currentPage - 1 %>" tabindex="-1" aria-disabled="true"><</a>
+                    </li>
+                    <% for (let i = 1; i <= totalPages; i++) { %>
+                        <li class="page-item <% if (currentPage === i) { %>active<% } %>">
+                            <a class="page-link" href="/news?page=<%= i %>"><%= i %></a>
+                        </li>
+                    <% } %>
+                    <li class="page-item <% if (currentPage === totalPages) { %>disabled<% } %>">
+                        <a class="page-link" href="/news?page=<%= currentPage + 1 %>">></a>
+                    </li>
+                </ul>
+            </nav>
+
+        <% posts.forEach(function(post, index) { %>
+            <div class="row post-row">
+                <div class="post">
+                    <% if (post.type === 1) { %>
+                        <h2><%= post.post_name %></h2>
+                        <p>Пользователь - <%= users[index] %> занял мероприятие: <%= post.post_mp %></p>
+                        <p>Дата и время проведения: <%= post.post_data %></p>
+                        <p>Статус мероприятия: <%= statusPost(post.status) %></p>
+                    <% } else if (post.type === 2) { %>
+                        <h2><%= post.post_name %></h2>
+                        <%- post.post_content %>
+                        <h5>Автор поста: <%= users[index] %></h5>
+                    <% } %>
+                </div>
+            </div>
+        <% }); %>
+
+    </div>
+
+    <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>
+
+    <script>
+        // Находим кнопку "Создать Анонс Мероприятия"
+        const createPostButton = document.querySelector('.cr-post');
+        // Находим кнопку "Опубликовать новость"
+        const publishButton = document.querySelector('.cr-post2');
+
+        // Создаем функцию, которая будет вызываться при нажатии на кнопку
+        function showCreatePostForm() {
+            // Создаем новую форму
+            const form = document.createElement('form');
+            form.action = '/create/post-anons';
+            form.method = 'POST';
+
+            // Создаем div для названия мероприятия
+            const eventNameDiv = document.createElement('div');
+            eventNameDiv.className = 'crpost-div';
+
+            const eventNameh1 = document.createElement('h1');
+            eventNameh1.textContent = 'Создание анонса мероприятий';
+            eventNameDiv.appendChild(eventNameh1);
+
+            const eventNameLabel = document.createElement('label');
+            eventNameLabel.setAttribute('for', 'event-name');
+            eventNameLabel.className = 'form-label';
+            eventNameLabel.textContent = 'Укажите название мероприятия';
+            eventNameDiv.appendChild(eventNameLabel);
+
+            const eventNameInput = document.createElement('input');
+            eventNameInput.className = 'form-control';
+            eventNameInput.type = 'text';
+            eventNameInput.id = 'event-name';
+            eventNameInput.name = 'event_name';
+            eventNameInput.placeholder = 'Название указывать строго по форме!';
+            eventNameDiv.appendChild(eventNameInput);
+
+            form.appendChild(eventNameDiv);
+
+            // Создаем div для даты и времени мероприятия
+            const eventDateTimeDiv = document.createElement('div');
+            eventDateTimeDiv.className = 'crpost-div';
+
+            const eventDateTimeLabel = document.createElement('label');
+            eventDateTimeLabel.setAttribute('for', 'event-date-time');
+            eventDateTimeLabel.className = 'form-label';
+            eventDateTimeLabel.textContent = 'Укажите дату и время проведения мероприятия';
+            eventDateTimeDiv.appendChild(eventDateTimeLabel);
+
+            const eventDateTimeInput = document.createElement('input');
+            eventDateTimeInput.className = 'form-control';
+            eventDateTimeInput.type = 'text';
+            eventDateTimeInput.id = 'event-date-time';
+            eventDateTimeInput.name = 'event_date_time';
+            eventDateTimeInput.placeholder = 'Убедитесь, что на ваше время не забито уже МП!';
+            eventDateTimeDiv.appendChild(eventDateTimeInput);
+
+            form.appendChild(eventDateTimeDiv);
+
+            const eventButtonDIV = document.createElement('div');
+            eventButtonDIV.className = 'crpost-button';
+
+            // Создаем кнопку "Опубликовать"
+            const submitButton = document.createElement('button');
+            submitButton.type = 'submit';
+            submitButton.className = 'btn btn-primary';
+            submitButton.textContent = 'Опубликовать';
+            eventButtonDIV.appendChild(submitButton);
+
+            form.appendChild(eventButtonDIV);
+
+
+
+            // Заменяем содержимое div на форму
+            createPostButton.parentNode.replaceChild(form, createPostButton);
+
+            // Прячем кнопку "Опубликовать новость"
+            publishButton.style.display = 'none';
+        }
+        function showCreatePostForm2() {
+            // Создаем новую форму
+            const form = document.createElement('form');
+            form.action = '/create/post-news';
+            form.method = 'POST';
+
+            // Создаем div для названия мероприятия
+            const eventNameDiv = document.createElement('div');
+            eventNameDiv.className = 'crpost-div';
+
+            const eventNameh1 = document.createElement('h1');
+            eventNameh1.textContent = 'Создание новости на сайте';
+            eventNameDiv.appendChild(eventNameh1);
+
+            const eventNameLabel = document.createElement('label');
+            eventNameLabel.setAttribute('for', 'event-name');
+            eventNameLabel.className = 'form-label';
+            eventNameLabel.textContent = 'Укажите название';
+            eventNameDiv.appendChild(eventNameLabel);
+
+            const eventNameInput = document.createElement('input');
+            eventNameInput.className = 'form-control';
+            eventNameInput.type = 'text';
+            eventNameInput.id = 'event-name';
+            eventNameInput.name = 'event_name';
+            eventNameInput.placeholder = 'Название, пример: Изменение в составе';
+            eventNameDiv.appendChild(eventNameInput);
+
+            form.appendChild(eventNameDiv);
+
+            // Создаем div для даты и времени мероприятия
+            const eventDateTimeDiv = document.createElement('div');
+            eventDateTimeDiv.className = 'crpost-div';
+
+            const eventDateTimeLabel = document.createElement('label');
+            eventDateTimeLabel.setAttribute('for', 'event-date-time');
+            eventDateTimeLabel.className = 'form-label';
+            eventDateTimeLabel.textContent = 'Напшите содержание для поста';
+            eventDateTimeDiv.appendChild(eventDateTimeLabel);
+
+            const eventDateTimeInput = document.createElement('textarea');
+            eventDateTimeInput.name = 'editor_content';
+            eventDateTimeInput.id = 'myEditor';
+            eventDateTimeDiv.appendChild(eventDateTimeInput);
+
+            form.appendChild(eventDateTimeDiv);
+
+            const eventButtonDIV = document.createElement('div');
+            eventButtonDIV.className = 'crpost-button';
+
+            // Создаем кнопку "Опубликовать"
+            const submitButton = document.createElement('button');
+            submitButton.type = 'submit';
+            submitButton.className = 'btn btn-primary';
+            submitButton.textContent = 'Опубликовать';
+            eventButtonDIV.appendChild(submitButton);
+
+            form.appendChild(eventButtonDIV);
+
+            // Заменяем содержимое div на форму
+            publishButton.parentNode.replaceChild(form, publishButton);
+
+            // Прячем кнопку "Создать анонс мп"
+            if (createPostButton) {
+                createPostButton.style.display = 'none';
+            }
+
+
+            new FroalaEditor('#myEditor', {toolbarInline: false});
+        }
+
+
+        // Добавляем обработчик события для кнопки "Создать объявление"
+        if (createPostButton) {
+            createPostButton.addEventListener('click', showCreatePostForm);
+        }
+        publishButton.addEventListener('click', showCreatePostForm2);
+
+    </script>

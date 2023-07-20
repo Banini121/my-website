@@ -1,0 +1,169 @@
+<div class='card'>
+    <div class='card-header'>
+        <h1><%= user_id.login %>, настройка профиля!</h1>
+    </div>
+    <div class='card-body'>
+        <div class="row"> <!--Настройка аккаунта-->
+            <div class="account-settings">
+                <h1>Редактирование данных от аккаунта</h1>
+                <button type="button" class="accs accs-nick btn btn-outline-primary">
+                    <i class="fas fa-user"><img src="../img/нов-имя.png" width="30" height="30" ></i>
+                    Сменить nickname
+                </button>
+
+                <button type="button" class="accs accs-email btn btn-outline-primary">
+                    <i class="fas fa-user"><img src="../img/нов-почта.png" width="30" height="30" ></i>
+                    Сменить email
+                </button>
+
+                <button type="button" class="accs accs-pass btn btn-outline-primary">
+                    <i class="fas fa-user"><img src="../img/нов-пароль.png" width="30" height="30" ></i>
+                    Сменить password
+                </button>
+
+            </div>
+        </div>
+        <div class="row"> <!--Привязки к акканту-->
+            <div class="account-link">
+                <h1>Дополнительные привязки к аккаунту</h1>
+                <button type="button" class="btn btn-outline-primary">
+                    <i class="fas fa-user"><img src="../img/вк.png" width="30" height="30" ></i>
+                    Привязать аккуант ВК
+                </button>
+
+                <button onclick="onRedir()" type="button" class="btn btn-outline-primary">
+                    <i class="fas fa-user"><img src="../img/дс.png" width="30" height="30" ></i>
+                    Привязать аккаунт ДС
+                </button>
+
+                <button onclick="authorizeVK()">Авторизоваться через ВКонтакте</button>
+
+                <script type="text/javascript">
+                    VK.init({
+                        apiId: 51658207,
+                        onlyWidgets: true
+                    });
+                </script>
+
+                <script>
+                    function authorizeVK() {
+                        VK.Auth.login(function(response) {
+                            if (response.session) {
+                                // Авторизация успешна, получение информации о пользователе
+                                var userId = response.session.mid;
+                                var accessToken = response.session.sid;
+
+                                console.log(userId, accessToken)
+
+                                // Выполните необходимые действия после авторизации,
+                                // например, отправьте полученные данные на сервер для проверки или сохраните их в локальном хранилище.
+                            } else {
+                                // Авторизация не удалась
+                                console.log('Не удалось авторизоваться через ВКонтакте.');
+                            }
+                        }, VK.access.FRIENDS | VK.access.PHOTOS); // Запрашиваем доступ к списку друзей и фотографиям пользователя
+                    }
+                </script>
+
+                <script>
+                    function onRedir() {
+                        location.replace('https://discord.com/api/oauth2/authorize?client_id=1096070149238435850&redirect_uri=http://localhost:3000/auth/discord&response_type=code&scope=identify')
+                    }
+                </script>
+
+            </div>
+        </div>
+        <div class="row"> <!--Привязки к акканту-->
+            <div class="settings-info"></div>
+        </div>
+
+        <script>
+            const buttons = document.querySelectorAll('.accs');
+            const formVariations = {
+                nickname: {
+                    label: 'Смена nickname аккаунта',
+                    inputType: 'text',
+                    inputId: 'inputNickname',
+                    inputName: 'nickname',
+                    inputPlaceholder: '',
+                    inputAriaLabelledBy: '',
+                    inputRequired: false,
+                    formText: 'Будьте креативными!',
+                    buttonText: 'Изменить',
+                    action: '/data/nickname',
+                    method: 'POST'
+                },
+                email: {
+                    label: 'Смена электронной почты аккаунта',
+                    inputType: 'email',
+                    inputId: 'exampleInputEmail1',
+                    inputName: 'email',
+                    inputPlaceholder: '',
+                    inputAriaLabelledBy: 'emailHelp',
+                    inputRequired: false,
+                    formText: 'Указывать только реальную электронную почту!',
+                    buttonText: 'Изменить',
+                    action: '/data/email',
+                    method: 'POST'
+                },
+                password: {
+                    label: 'Смена пароля от аккаунта',
+                    inputType: 'password',
+                    inputId: 'inputPassword5',
+                    inputName: 'password',
+                    inputPlaceholder: '',
+                    inputAriaLabelledBy: 'passwordHelpBlock',
+                    inputRequired: false,
+                    formText: 'Для лучшей безопастности аккаунта пароль не должен быть простым!',
+                    buttonText: 'Изменить',
+                    action: '/data/password',
+                    method: 'POST'
+                }
+            };
+
+            function handleClick(event, variation) {
+                const button = event.target;
+                const buttonText = button.innerText;
+                const infoDiv = document.querySelector('.settings-info');
+
+                const form = document.createElement('form');
+                const {
+                    label,
+                    inputType,
+                    inputId,
+                    inputName,
+                    inputPlaceholder,
+                    inputAriaLabelledBy,
+                    inputRequired,
+                    formText,
+                    buttonText: variationButtonText,
+                    action,
+                    method
+                } = variation;
+
+                form.innerHTML = `
+    <div class="mb-3">
+      <label for="${inputId}" class="form-label">${label}</label>
+      <input type="${inputType}" class="form-control" id="${inputId}" name="${inputName}" placeholder="${inputPlaceholder}" aria-labelledby="${inputAriaLabelledBy}" ${inputRequired ? 'required' : ''}>
+      <div id="${inputAriaLabelledBy}" class="form-text">${formText}</div>
+    </div>
+    <button type="submit" class="btn btn-primary">${variationButtonText}</button>
+  `;
+
+                form.setAttribute('action', action);
+                form.setAttribute('method', method);
+
+                infoDiv.innerHTML = '';
+                infoDiv.appendChild(form);
+            }
+
+            buttons.forEach((button, index) => {
+                const variationKey = Object.keys(formVariations)[index];
+                const variation = formVariations[variationKey];
+                button.addEventListener('click', (event) => handleClick(event, variation));
+            });
+        </script>
+
+
+    </div>
+</div>

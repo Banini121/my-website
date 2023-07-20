@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Подключений доп файлов-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../css/profile.css">
+    <script src="../js/script.js"></script>
+
+    <link rel="shortcut icon" href="../img/иконка.png" />
+    <title>Хранитель</title>
+</head>
+<body>
+<div class="container">
+    <div class='dashboard'>
+        <div class="dashboard-nav">
+            <header>
+                <a href="#!" class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </a>
+                <a href="#" class="brand-logo">
+                    <i class="fas fa-anchor"><img src="../img/хранитель.png" width="42" height="42" ></i>
+                    <span>ХРАНИТЕЛЬ</span>
+                </a>
+            </header>
+            <nav class="dashboard-nav-list">
+                <a href="#" class="dashboard-nav-item">
+                    <i class="fas fa-home"><img src="../img/домой.png" width="30" height="30" ></i>
+                    Домой
+                </a>
+                <a href="#" class="dashboard-nav-item">
+                    <i class="fas fa-tachometer-alt"><img src="../img/новости.png" width="30" height="30" ></i>
+                    Новости
+                </a>
+                <div class='dashboard-nav-dropdown'>
+                    <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
+                        <i class="fas fa-users"><img src="../img/панель.png" width="30" height="30" ></i>
+                        Панель
+                    </a>
+                    <div class='dashboard-nav-dropdown-menu'>
+                        <a href="#" class="dashboard-nav-dropdown-item">Администраций</a>
+                        <a href="#" class="dashboard-nav-dropdown-item">Модераций</a>
+                        <a href="#" class="dashboard-nav-dropdown-item">Ведущих</a>
+                    </div>
+                </div>
+                <div class='dashboard-nav-dropdown '>
+                    <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
+                        <i class="fas fa-users"><img src="../img/пользователи.png" width="30" height="30" ></i>
+                        Пользователи
+                    </a>
+                    <div class='dashboard-nav-dropdown-menu'>
+                        <a href="#" class="dashboard-nav-dropdown-item">Персонал</a>
+                        <a href="#" class="dashboard-nav-dropdown-item">Администрация</a>
+                        <a href="#" class="dashboard-nav-dropdown-item">Модераторы</a>
+                        <a href="#" class="dashboard-nav-dropdown-item">Ведущие</a>
+                        <a href="#" class="dashboard-nav-dropdown-item">Секрет</a>
+                    </div>
+                </div>
+                <a href="#" class="dashboard-nav-item ">
+                    <i class="fas fa-cogs"><img src="../img/настройки.png" width="30" height="30" ></i>
+                    Настройки
+                </a>
+                <a href="#" class="dashboard-nav-item active">
+                    <i class="fas fa-user"><img src="../img/профиль.png" width="30" height="30" ></i>
+                    Профиль
+                </a>
+                <div class="nav-item-divider"></div>
+                <a href="#" class="dashboard-nav-item">
+                    <i class="fas fa-sign-out-alt"><img src="../img/выход.png" width="30" height="30" ></i>
+                    Выход
+                </a>
+            </nav>
+        </div>
+        <div class='dashboard-app'>
+
+            <header class='dashboard-toolbar'>
+                <a href="#!" class="menu-toggle">
+                    <i class="fas fa-bars"><img src="../img/menu.png" width="42" height="42" ></i>
+                </a>
+                <div class="menu-user">
+
+                    <span style="text-transform: uppercase;">Хозяин</span>
+                    <i class="fas fa-bars"><img src="../img/ava.jpg"></i>
+                </div>
+            </header>
+
+            <div class='dashboard-content'>
+                <div class='container'>
+                    <div class='card'>
+                        <div class='card-header'>
+                            <h1>Хозяин, ваш профиль готов!</h1>
+                        </div>
+                        <div class='card-body'>
+                            <div class="row">
+                                <div class="profile col-4">
+                                    <!--первый блок с авой и ником + высшая должность-->
+                                    <img src="../img/ava.jpg" height="200" width="200">
+                                    <span class="name" >Хозяин</span>
+                                    <span class="post">Разработчик</span>
+                                </div>
+                                <div class="data col">
+                                    <!--Данные о аккаунте-->
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Данные о аккаунте</th>
+                                            <th scope="col"> </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>Вконтакте</td>
+                                            <td>https://vk.com/1banini1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Дискорд</td>
+                                            <td>993272353283432</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Почта</td>
+                                            <td>mymail@gmail.com</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="statistics">
+                                    <button type="button" class="btn btn-outline-primary">Общая статистика</button>
+                                    <button type="button" class="btn btn-outline-primary" disabled>Модерация (ВК)</button>
+                                    <button type="button" class="btn btn-outline-primary" disabled>Модерация (ДС)</button>
+                                    <button type="button" class="btn btn-outline-primary">Ведущие МП</button>
+                                </div>
+                                <div class="info"></div>
+                            </div>
+                            <script>
+                                // Получаем все кнопки по классу
+                                const buttons = document.querySelectorAll('.btn');
+
+                                // Обработчик события клика на кнопке
+                                function handleClick(event) {
+                                    const button = event.target;
+                                    const buttonText = button.innerText;
+
+                                    // Получаем div с классом "info"
+                                    const infoDiv = document.querySelector('.info');
+
+                                    // Обновляем данные в div
+                                    infoDiv.innerText = `Вы нажали на кнопку: ${buttonText}`;
+                                }
+
+                                // Проходимся по каждой кнопке и добавляем обработчик события клика
+                                buttons.forEach(button => {
+                                    button.addEventListener('click', handleClick);
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

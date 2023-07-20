@@ -1,0 +1,111 @@
+<div class="dashboard-nav">
+    <header>
+        <a href="#!" class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </a>
+        <a href="#" class="brand-logo">
+            <i class="fas fa-anchor"><img src="../img/хранитель.png" width="42" height="42" ></i>
+            <span>ХРАНИТЕЛЬ</span>
+        </a>
+    </header>
+    <nav class="dashboard-nav-list">
+        <a href="/profile" class="dashboard-nav-item">
+            <i class="fas fa-user"><img src="../img/профиль.png" width="30" height="30" ></i>
+            Профиль
+        </a>
+        <a href="/news" class="dashboard-nav-item">
+            <i class="fas fa-tachometer-alt"><img src="../img/новости.png" width="30" height="30" ></i>
+            Новости
+        </a>
+        <% if (user_id.access.includes(2) || user_id.access.includes(4) || user_id.access.includes(7) || user_id.access.some(access => access >= 8)) { %>
+            <div class='dashboard-nav-dropdown'>
+                <a href="#" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
+                    <i class="fas fa-users"><img src="../img/панель.png" width="30" height="30" ></i>
+                    Панель
+                </a> <!--Доступ у Руководства ВК, МП, ДС-->
+                <div class='dashboard-nav-dropdown-menu'>
+                    <% if (user_id.access.some(access => access >= 8)) { %>
+                        <a href="/panel/adm" class="dashboard-nav-dropdown-item">Администраций</a> <!--Доступ тех.сотр+-->
+                    <% } %>
+                    <% if (user_id.access.includes(7) || user_id.access.some(access => access >= 8)) { %>
+                        <a href="/panel/moder-vk" class="dashboard-nav-dropdown-item">Модераторы ВК</a> <!--Доступ рук.ВК-->
+                    <% } %>
+                    <% if (user_id.access.includes(4) || user_id.access.some(access => access >= 8)) { %>
+                        <a href="/panel/moder-ds" class="dashboard-nav-dropdown-item">Модераторы ДС</a> <!--Доступ рук.ДС-->
+                    <% } %>
+                    <% if (user_id.access.includes(2) || user_id.access.some(access => access >= 8)) { %>
+                        <a href="/panel/pres" class="dashboard-nav-dropdown-item">Ведущих</a> <!--Доступ рук.мп-->
+                    <% } %>
+                    <% if (user_id.access.includes(7) || user_id.access.some(access => access >= 8)) { %>
+                        <a href="/panel/pres" class="dashboard-nav-dropdown-item">Редакторы</a> <!--Доступ рук.мп-->
+                    <% } %>
+                </div>
+            </div>
+        <% } %>
+
+        <div class='dashboard-nav-dropdown'>
+            <a href="#" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
+                <i class="fas fa-users"><img src="../img/пользователи.png" width="30" height="30" ></i>
+                Пользователи
+            </a>
+            <div class='dashboard-nav-dropdown-menu'>
+                <a href="/user/staff" class="dashboard-nav-dropdown-item">Персонал</a>
+                <% if (user_id.access.some(access => access >= 8)) { %>
+                    <a href="/user/adm" class="dashboard-nav-dropdown-item">Администрация</a> <!--Доступ у тех.сотрудника и выше-->
+                <% } %>
+                <% if (user_id.access.includes(5) || user_id.access.includes(7) || user_id.access.some(access => access >= 8)) { %>
+                    <a href="/user/moder-vk" class="dashboard-nav-dropdown-item">Модераторы ВК</a> <!--У модераций ВК-->
+                <% } %>
+                <% if (user_id.access.includes(3) || user_id.access.includes(4) || user_id.access.some(access => access >= 8)) { %>
+                    <a href="/user/moder-ds" class="dashboard-nav-dropdown-item">Модераторы ДС</a> <!--У модераций ДС-->
+                <% } %>
+                <% if (user_id.access.includes(1) || user_id.access.includes(2) || user_id.access.some(access => access >= 8)) { %>
+                    <a href="/user/pres" class="dashboard-nav-dropdown-item">Ведущие</a> <!--У Ведущих МП-->
+                <% } %>
+                <% if (user_id.access.includes(6) || user_id.access.some(access => access >= 8)) { %>
+                    <a href="/user/pres" class="dashboard-nav-dropdown-item">Редактор</a> <!--У Ведущих МП-->
+                <% } %>
+            </div>
+        </div>
+
+        <a href="/setting" class="dashboard-nav-item">
+            <i class="fas fa-cogs"><img src="../img/настройки.png" width="30" height="30" ></i>
+            Настройки
+        </a>
+        <div class="nav-item-divider"></div>
+        <a href="/logout" class="dashboard-nav-item">
+            <i class="fas fa-sign-out-alt"><img src="../img/выход.png" width="30" height="30" ></i>
+            Выход
+        </a>
+    </nav>
+</div>
+<div class='dashboard-app'>
+    <script>
+        function updateTime() {
+            var date = new Date();
+            var options = {
+                timeZone: "Europe/Moscow",
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric",
+                hour12: false,
+            };
+            var timeString = date.toLocaleTimeString("en-US", options);
+            document.getElementById("clock").textContent = timeString;
+        }
+
+        window.onload = function () {
+            updateTime();
+            setInterval(updateTime, 1000);
+        };
+    </script>
+    <header class='dashboard-toolbar'>
+        <a href="#!" class="menu-toggle">
+            <i class="fas fa-bars"><img src="../img/menu.png" width="42" height="42" ></i>
+        </a>
+        <div class="menu-user">
+            <div id="clock" style="margin-right: 20px; font-size: 20px"></div>
+            <span style="text-transform: uppercase"><%= user_id.login %></span>
+            <i class="fas fa-bars"><img src="../img/ava.jpg"></i>
+        </div>
+    </header>

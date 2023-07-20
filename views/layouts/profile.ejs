@@ -1,0 +1,80 @@
+<div class='card'>
+    <div class='card-header'>
+        <h1><%= user_id.login %>, ваш профиль готов!</h1>
+    </div>
+    <div class='card-body'>
+        <div class="row">
+            <div class="profile col-sm">
+                <!--первый блок с авой и ником + высшая должность-->
+                <img src="../img/ava.jpg" height="200" width="200">
+                <span class="name" ><%= user_id.login %></span>
+                <span class="post">
+                    <% user_id.access.forEach(function(item) { %>
+                        <% const index = user_id.access.indexOf(item); %>
+                        <li class="access-<%= item %>"><%= getAccessName(item) %></li>
+                    <% }); %>
+                </span>
+            </div>
+            <div class="data col-sm">
+                <!--Данные о аккаунте-->
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Данные о аккаунте</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Вконтакте</td>
+                        <td><%= user_id.vk %></td>
+                    </tr>
+                    <tr>
+                        <td>Дискорд</td>
+                        <td><%= user_id.ds %></td>
+                    </tr>
+                    <tr>
+                        <td>Почта</td>
+                        <td><%= user_id.email %></td>
+                    </tr>
+                    <tr>
+                        <td>user_id</td>
+                        <td><%= user_id.id %></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="statistics">
+                <button type="button" class="btn btn-outline-primary">Общая статистика</button>
+                <button type="button" class="btn btn-outline-primary" disabled>Модерация (ВК)</button>
+                <button type="button" class="btn btn-outline-primary" disabled>Модерация (ДС)</button>
+                <button type="button" class="btn btn-outline-primary">Ведущие МП</button>
+            </div>
+            <div class="info"></div>
+        </div>
+        <script>
+            // Получаем все кнопки по классу
+            const buttons = document.querySelectorAll('.btn');
+
+            // Обработчик события клика на кнопке
+            function handleClick(event) {
+                const button = event.target;
+                const buttonText = button.innerText;
+
+                // Получаем div с классом "info"
+                const infoDiv = document.querySelector('.info');
+
+                // Обновляем данные в div
+                infoDiv.innerText = `Вы нажали на кнопку: ${buttonText}`;
+            }
+
+            // Проходимся по каждой кнопке и добавляем обработчик события клика
+            buttons.forEach(button => {
+                button.addEventListener('click', handleClick);
+            });
+        </script>
+    </div>
+</div>
